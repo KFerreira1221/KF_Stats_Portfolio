@@ -1,0 +1,71 @@
+# Sample data representing a housing dataset
+my @data = (
+    { area => 1500, rooms => 3, price => 300000 },
+    { area => 1800, rooms => 4, price => 400000 },
+    { area => 1700, rooms => 3, price => 350000 },
+    { area => 1600, rooms => 3, price => 340000 },
+    { area => 1900, rooms => 4, price => 420000 },
+);
+
+# Step 1: Data Preparation
+# Separate features (area, rooms) and target variable (price)
+my @area = @data.map({ .{"area"} });
+my @rooms = @data.map({ .{"rooms"} });
+my @prices = @data.map({ .{"price"} });
+
+# Step 2: Exploratory Data Analysis (EDA)
+# Calculate and display basic statistics (mean, min, max) for 'price'
+my $mean-price = @prices.sum / @prices.elems;
+my $min-price = @prices.min;
+my $max-price = @prices.max;
+
+say "Price Statistics:";
+say "Mean: $mean-price";
+say "Min: $min-price";
+say "Max: $max-price";
+
+# Step 3: Simple Linear Regression
+# Calculate regression coefficients for price based on area
+# Note: This example uses simple linear regression with one variable (area) for simplicity
+
+sub mean(@values) {
+    return @values.sum / @values.elems;
+}
+
+sub linear_regression(@x, @y) {
+    my $x-mean = mean(@x);
+    my $y-mean = mean(@y);
+
+    my $numerator = 0;
+    my $denominator = 0;
+    for 0 ..^ @x.elems -> $i {
+        $numerator += (@x[$i] - $x-mean) * (@y[$i] - $y-mean);
+        $denominator += (@x[$i] - $x-mean) ** 2;
+    }
+
+    my $slope = $numerator / $denominator;
+    my $intercept = $y-mean - ($slope * $x-mean);
+
+    return $slope, $intercept;
+}
+
+my ($slope, $intercept) = linear_regression(@area, @prices);
+say "Linear Regression Model:";
+say "Price = $intercept + $slope * Area";
+
+# Step 4: Predict and Evaluate
+# Using the model to predict prices and calculate Mean Squared Error (MSE)
+
+sub predict-price($area) {
+    return $intercept + $slope * $area;
+}
+
+my @predicted-prices = @area.map({ predict-price($_) });
+my $mse = mean((@prices Z @predicted-prices).map({ ($^a - $^b) ** 2 }));
+say "Mean Squared Error (MSE): $mse";
+
+# Step 5: Display Predictions vs. Actuals
+say "Predicted vs. Actual Prices:";
+for @prices Z @predicted-prices -> $actual, $predicted {
+    say "Actual: $actual, Predicted: $predicted";
+}
