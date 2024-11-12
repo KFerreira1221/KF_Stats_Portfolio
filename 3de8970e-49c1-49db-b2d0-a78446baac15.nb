@@ -1,0 +1,583 @@
+Notebook[{Cell[
+CellGroupData[{Cell[
+BoxData[{RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[
+{"Step"," ","1"}],":"," ",RowBox[{"Import"," ","Data"}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"titanicData"," ","="," ",RowBox[{"Import","[","\"https://docs.google.com/spreadsheets/d/13BbdPizP14awpyGR_B1m0xkhHD_k9O0jnVADoq1szeU/export?format=csv&gid=1656516277\"","]"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","2"}],":"," ",RowBox[
+{"Check"," ","the"," ","structure"," ","of"," ","the"," ","data"}]}]," ","*)"}],"\n",RowBox[
+{"Head","[","titanicData","]"}],"  ",RowBox[{"(*"," ",RowBox[{"Should"," ","be"," ","List"}]," ","*)"}]}],"\n",RowBox[
+{RowBox[{"Take","[",RowBox[{"titanicData",","," ","5"}],"]"}],"  ",RowBox[{"(*"," ",RowBox[
+{"Check"," ","the"," ","first"," ","few"," ","rows"}]," ","*)"}]}],RowBox[{"\n","\n"}],RowBox[
+{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","3"}],":"," ",RowBox[{"Find"," ","the"," ","index"," ","of"," ","the"," ","\"Age\""," ","column"}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"ageIndex"," ","="," ",RowBox[{RowBox[{"Position","[",RowBox[{RowBox[{"First","[","titanicData","]"}],","," ","\"Age\""}],"]"}],"[",RowBox[
+{"[",RowBox[{"1",","," ","1"}],"]"}],"]"}]}],";"}]}],RowBox[{"\n","\n"}],RowBox[{RowBox[
+{"(*"," ",RowBox[{RowBox[{RowBox[{"Step"," ","4"}],":"," ",RowBox[{"Extract"," ","ages"}]}],","," ",RowBox[
+{"skipping"," ","the"," ","header"," ","row"}]}]," ","*)"}],"\n",RowBox[{RowBox[{"ages"," ","="," ",RowBox[
+{"ToExpression","[",RowBox[{"titanicData","[",RowBox[{"[",RowBox[{RowBox[{"2"," ",";;"}],","," ","ageIndex"}],"]"}],"]"}],"]"}]}],";"}]," ",RowBox[
+{"(*"," ",RowBox[{"Converts"," ","strings"," ","to"," ","numbers"}]," ","*)"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","5"}],":"," ",RowBox[
+{"Remove"," ","missing"," ","values"}]}]," ","*)"}],"\n",RowBox[{RowBox[{"cleanAges"," ","="," ",RowBox[
+{"DeleteCases","[",RowBox[{"ages",","," ",RowBox[{"_String"," ","|"," ","\"\""," ","|"," ",RowBox[
+{"Missing","[","]"}]}]}],"]"}]}],";"}]}],RowBox[{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[
+{RowBox[{"Step"," ","6"}],":"," ",RowBox[{"Select"," ","only"," ","numerical"," ","values"}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"numericAges"," ","="," ",RowBox[{"Select","[",RowBox[{"cleanAges",","," ","NumberQ"}],"]"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","7"}],":"," ",RowBox[
+{"Calculate"," ","the"," ","median"," ","age"}]}]," ","*)"}],"\n",RowBox[{RowBox[
+{"medianAge"," ","="," ",RowBox[{"Median","[","numericAges","]"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","8"}],":"," ",RowBox[
+{"Plot"," ","the"," ","histogram"}]}]," ","*)"}],"\n",RowBox[{RowBox[{"Histogram","[",RowBox[
+{"numericAges",","," ","\"Sturges\""}],"]"}],"\n"}]}]}],"Input",CellLabel -> "In[1]:= ",
+ExpressionUUID -> "39d7cf31-41a9-4d18-98d2-8cfb1d5a4717"],Cell[
+BoxData["List",StandardForm],
+"Output",CellLabel -> "Out[2]= ",ExpressionUUID -> "55a46824-94f4-4f48-9192-764430e086aa"],Cell[
+BoxData[
+RowBox[{"{",RowBox[{RowBox[{"{",RowBox[{"\"PassengerId\"",",","\"Survived\"",",","\"Pclass\"",",","\"Name\"",",","\"Sex\"",",","\"Age\"",",","\"SibSp\"",",","\"Parch\"",",","\"Ticket\"",",","\"Fare\"",",","\"Cabin\"",",","\"Embarked\""}],"}"}],",",RowBox[
+{"{",RowBox[{"1",",","0",",","3",",","\"Braund, Mr. Owen Harris\"",",","\"male\"",",","22",",","1",",","0",",","\"A/5 21171\"",",","7.25`",",","\"\"",",","\"S\""}],"}"}],",",RowBox[
+{"{",RowBox[{"2",",","1",",","1",",","\"Cumings, Mrs. John Bradley (Florence Briggs Thayer)\"",",","\"female\"",",","38",",","1",",","0",",","\"PC 17599\"",",","71.2833`",",","\"C85\"",",","\"C\""}],"}"}],",",RowBox[
+{"{",RowBox[{"3",",","1",",","3",",","\"Heikkinen, Miss. Laina\"",",","\"female\"",",","26",",","0",",","0",",","\"STON/O2. 3101282\"",",","7.925`",",","\"\"",",","\"S\""}],"}"}],",",RowBox[
+{"{",RowBox[{"4",",","1",",","1",",","\"Futrelle, Mrs. Jacques Heath (Lily May Peel)\"",",","\"female\"",",","35",",","1",",","0",",","113803",",","53.1`",",","\"C123\"",",","\"S\""}],"}"}]}],"}"}],
+StandardForm],"Output",CellLabel -> "Out[3]= ",ExpressionUUID -> "516b40fb-6c84-4e34-b042-373bc358a275"],Cell[
+BoxData[
+GraphicsBox[{{Directive[EdgeForm[Directive[Thickness[Small],Opacity[0.623`]]],RGBColor[
+0.987148`,0.8073604000000001`,0.49470040000000004`]],{{},{Directive[EdgeForm[Directive[
+Thickness[Small],Opacity[0.623`]]],RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],{{TagBox[
+TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[
+{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{0.`,0},
+{10.`,62.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},Function[StatusArea[
+Slot[1],62]],TagBoxNote -> "62"],StyleBox["62",{},StripOnInput -> False]],Function[
+Annotation[Slot[1],Style[62,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[
+{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{10.`,0},{20.`,102.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],102]],TagBoxNote -> "102"],
+StyleBox["102",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[102,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{20.`,0},{30.`,220.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],220]],TagBoxNote -> "220"],StyleBox["220",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[220,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{30.`,0},{40.`,167.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],167]],TagBoxNote -> "167"],
+StyleBox["167",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[167,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{40.`,0},{50.`,89.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],89]],TagBoxNote -> "89"],StyleBox["89",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[89,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{50.`,0},{60.`,48.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],48]],TagBoxNote -> "48"],
+StyleBox["48",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[48,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{60.`,0},{70.`,19.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],19]],TagBoxNote -> "19"],StyleBox["19",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[19,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{70.`,0},{80.`,6.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],6]],TagBoxNote -> "6"],StyleBox[
+"6",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[6,{}],"Tooltip"]]]},{TagBox[
+TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[
+{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{80.`,0},
+{90.`,1.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},Function[StatusArea[
+Slot[1],1]],TagBoxNote -> "1"],StyleBox["1",{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[1,{}],"Tooltip"]]]}}},{},{}}},{{},{},{},{},{},{},{},{},{}}},{AspectRatio -> NCache[
+Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {True,True},AxesLabel -> {None,None},AxesOrigin -> {-1.8`,0},FrameLabel -> {{None,None},{None,None}},FrameTicks -> {{Automatic,Automatic},{Automatic,Automatic}},GridLines -> {None,None},GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],Method -> CompressedData["1:eJzVVVlsDVEYnmotjX1rlBANEkvE0sTy4ujCtbZXbyshEsa9Z24P0znXf2ait94ssUQQmlqDNkFsfZBaKvoitfYB0VpKael2Q1MNIRHCOXPbXm6PCp6cZM78Z/7vX+efb+JW0zQtWlEUFsW3RYSZWpe2U5qlYxbDhSRKwUMM1cQsnVI91WcSarAQsKOZqy8Xkgnz6ap/rmW4hYEWIRA9+Nb+5GcP7fr5HmyYxPSH9E4VWvXi5NKpScTJ3v7GTgDCMh5oF+oj2LNU1S38n2TdkwsJ2YQ5VQ9/Q96gVTdh5VZ17IENgwodNTm5KMysvyg2k4dJxppq6abL9OtY6/tTYZFtCaY5EpOoTgFm5PeL2OpsRtB/d2nZw+I6BI+nxu5qiC9FErAvb2/d6NzHCKbkBfZvm16N4NbmAwvPXKqXgZX65UVKUw0C63xJakZcPYLYPSUvvrbcloHLL36clbGlCcHzScfODSl8gmCsI6Jg1c27MvCJjTvOrAzw6C1HJo4sGvECAdmhnFq/TppG2sWqqJdFjQiOpA4/m3v0GYJ3sdvv95h2VQbeN2zOo6ELeIGFq1sOX7/7GsHxqrgbSnRAArbfHyj2akRE3CQery3b9CmjuBbB2pZxys14XtiomClvJ598LQuPh12JtBa84i0bMfjb+lIuKK1LAp5Xk8MHgbcsKFQgiLdXmczz+JljkgeceopgdsWHJY6i6jbwGxmY9szvvSaOz0Rm0peGjbW8C5UV93pV3rogA+9U1iUU72tAcOn91/LswCMEi6alrCgbUi0DFzjjR1U2P0Bgp1zDZ8L7/E7J2Oxn4cM8SHBNcI4TqWV4VPDb88wEryVYJs1STeIOMxocMrI/hESV4eBX0DGTjM/R3st5vMZZ1xJz6ioCCPqsKK+acPpleCZDQ04doPoyiZvNN0wMapA4IjshzO5cWIqBcVxru9+Hex/AhXTua+1iajHspIx0pCNbSAcLs66CslSdYUmgOZqG3SbrNCHRvHnEm6nz6wc2kiBFJOAtpjKC6vOjGyclxj/4EiklA/XpxMCd/35EqzTAWKOQlWQBo7CYenB7cyR++Z/KjbM4E3fqV6Se7RJtS9B1ic7vEscUaoSH6BeaDCfn89/PZ29hwDXE+ENq7yUE1fDiX9kdOijWafQdfFA2/g=="],PlotRange -> {{0.`,90.`},{All,All}},PlotRangePadding -> {{Scaled[
+0.02`],Scaled[0.02`]},{Scaled[0.02`],Scaled[0.05`]}},Ticks -> {Automatic,Automatic}}],
+StandardForm],"Output",CellLabel -> "Out[9]= ",ExpressionUUID -> "09bef07d-c031-48b2-8a8a-4c7065083f0f"]},
+Open],ExpressionUUID -> "0fdc286c-16ac-4c4d-a4c1-41661438f295"],Cell[
+CellGroupData[
+{Cell[
+BoxData[{RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","1"}],":"," ",RowBox[
+{"Calculate"," ","Descriptive"," ","Statistics"," ","for"," ","Age"," ","and"," ","Fare"}]}]," ","*)"}],"\n","\n",RowBox[
+{"(*"," ",RowBox[{"Descriptive"," ","Statistics"," ","for"," ","Age"}]," ","*)"}],"\n",RowBox[
+{RowBox[{"meanAge"," ","="," ",RowBox[{"Mean","[","numericAges","]"}]}],";"}]}],"\n",RowBox[
+{RowBox[{"medianAge"," ","="," ",RowBox[{"Median","[","numericAges","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"stdDevAge"," ","="," ",RowBox[{"StandardDeviation","[","numericAges","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"modeAge"," ","="," ",RowBox[{"Commonest","[","numericAges","]"}]}],";"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{"Descriptive"," ","Statistics"," ","for"," ","Fare"}]," ","*)"}],"\n",RowBox[
+{RowBox[{"fareIndex"," ","="," ",RowBox[{RowBox[{"Position","[",RowBox[{RowBox[{"First","[","titanicData","]"}],","," ","\"Fare\""}],"]"}],"[",RowBox[
+{"[",RowBox[{"1",","," ","1"}],"]"}],"]"}]}],";"}]}],"\n",RowBox[{RowBox[{"fares"," ","="," ",RowBox[
+{"ToExpression","[",RowBox[{"titanicData","[",RowBox[{"[",RowBox[{RowBox[{"2"," ",";;"}],","," ","fareIndex"}],"]"}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"cleanFares"," ","="," ",RowBox[{"DeleteCases","[",RowBox[{"fares",","," ",RowBox[
+{"_String"," ","|"," ","\"\""," ","|"," ",RowBox[{"Missing","[","]"}]}]}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"numericFares"," ","="," ",RowBox[{"Select","[",RowBox[{"cleanFares",","," ","NumberQ"}],"]"}]}],";"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"meanFare"," ","="," ",RowBox[{"Mean","[","numericFares","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"medianFare"," ","="," ",RowBox[{"Median","[","numericFares","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"stdDevFare"," ","="," ",RowBox[{"StandardDeviation","[","numericFares","]"}]}],";"}],"\n",RowBox[
+{RowBox[{"modeFare"," ","="," ",RowBox[{"Commonest","[","numericFares","]"}]}],";"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{"Display"," ","Statistics"}]," ","*)"}],"\n",RowBox[
+{"{",RowBox[{"meanAge",","," ","medianAge",","," ","stdDevAge",","," ","modeAge"}],"}"}]}],"\n",RowBox[
+{"{",RowBox[{"meanFare",","," ","medianFare",","," ","stdDevFare",","," ","modeFare"}],"}"}]}],
+"Input",CellLabel -> "In[17]:= ",ExpressionUUID -> "ff297ffb-a1be-4dbd-8b38-1af44df3ab87"],Cell[
+BoxData[
+RowBox[{"{",RowBox[{"29.69911764705882`",",","28",",","14.526497332334042`",",",RowBox[
+{"{","24","}"}]}],"}"}],StandardForm],"Output",CellLabel -> "Out[29]= ",ExpressionUUID -> "957f5f1c-c1e0-4616-8ce7-991d4ed24df9"],Cell[
+BoxData[
+RowBox[{"{",RowBox[{"32.204207968574636`",",","14.4542`",",","49.6934285971809`",",",RowBox[
+{"{","8.05`","}"}]}],"}"}],StandardForm],"Output",CellLabel -> "Out[30]= ",ExpressionUUID -> "807e10b5-c11f-4f34-b5cc-bbe8a6b5eada"]},
+Open],ExpressionUUID -> "baa33a05-b069-4962-bb0a-28680d2a8bc6"],Cell[
+CellGroupData[
+{Cell[
+BoxData[{RowBox[{RowBox[{"(*"," ",RowBox[{"Age"," ","Distribution"}]," ","*)"}],"\n",RowBox[
+{"Histogram","[",RowBox[{"numericAges",","," ","\"Sturges\"",","," ",RowBox[{"ChartLegends"," ","\[Rule]"," ",RowBox[
+{"{","\"Age\"","}"}]}]}],"]"}]}],"\n",RowBox[{"BoxWhiskerChart","[",RowBox[{"numericAges",","," ",RowBox[
+{"ChartLegends"," ","\[Rule]"," ",RowBox[{"{","\"Age\"","}"}]}],","," ",RowBox[{"ChartStyle"," ","\[Rule]"," ","\"Pastel\""}]}],"]"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{"Fare"," ","Distribution"}]," ","*)"}],"\n",RowBox[
+{"Histogram","[",RowBox[{"numericFares",","," ","\"Sturges\"",","," ",RowBox[{"ChartLegends"," ","\[Rule]"," ",RowBox[
+{"{","\"Fare\"","}"}]}]}],"]"}]}],"\n",RowBox[{"BoxWhiskerChart","[",RowBox[{"numericFares",","," ",RowBox[
+{"ChartLegends"," ","\[Rule]"," ",RowBox[{"{","\"Fare\"","}"}]}],","," ",RowBox[{"ChartStyle"," ","\[Rule]"," ","\"Pastel\""}]}],"]"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{"Survival"," ","Rates"," ","by"," ","Gender"}]," ","*)"}],"\n",RowBox[
+{RowBox[{"sexIndex"," ","="," ",RowBox[{RowBox[{"Position","[",RowBox[{RowBox[{"First","[","titanicData","]"}],","," ","\"Sex\""}],"]"}],"[",RowBox[
+{"[",RowBox[{"1",","," ","1"}],"]"}],"]"}]}],";"}]}],"\n",RowBox[{RowBox[{"gender"," ","="," ",RowBox[
+{"titanicData","[",RowBox[{"[",RowBox[{RowBox[{"2"," ",";;"}],","," ","sexIndex"}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"survivedIndex"," ","="," ",RowBox[{RowBox[{"Position","[",RowBox[{RowBox[
+{"First","[","titanicData","]"}],","," ","\"Survived\""}],"]"}],"[",RowBox[{"[",RowBox[
+{"1",","," ","1"}],"]"}],"]"}]}],";"}],"\n",RowBox[{RowBox[{"survived"," ","="," ",RowBox[
+{"ToExpression","[",RowBox[{"titanicData","[",RowBox[{"[",RowBox[{RowBox[{"2"," ",";;"}],","," ","survivedIndex"}],"]"}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"genderSurvival"," ","="," ",RowBox[{"Tally","[",RowBox[{"Transpose","[",RowBox[
+{"{",RowBox[{"gender",","," ","survived"}],"}"}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"BarChart","[",RowBox[{RowBox[{"genderSurvival","[",RowBox[{"[",RowBox[{"All",","," ","2"}],"]"}],"]"}],","," ",RowBox[
+{"ChartLabels"," ","\[Rule]"," ",RowBox[{"genderSurvival","[",RowBox[{"[",RowBox[
+{"All",","," ","1"}],"]"}],"]"}]}],","," ",RowBox[{"ChartLegends"," ","\[Rule]"," ",RowBox[
+{"{",RowBox[{"\"Not Survived\"",","," ","\"Survived\""}],"}"}]}]}],"]"}],"\n"}]}],
+"Input",CellLabel -> "In[31]:= ",ExpressionUUID -> "44c01f2f-b1d7-4dac-861c-4d6c8ff4dc3b"],Cell[
+BoxData[
+TemplateBox[{GraphicsBox[{{Directive[EdgeForm[Directive[Thickness[Small],Opacity[
+0.623`]]],RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],{{},{Directive[
+EdgeForm[Directive[Thickness[Small],Opacity[0.623`]]],RGBColor[0.987148`,0.8073604000000001`,
+0.49470040000000004`]],{{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[
+CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[
+0.66`]}],{},{}],RectangleBox[{0.`,0},{10.`,62.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],62]],TagBoxNote -> "62"],StyleBox["62",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[62,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{10.`,0},{20.`,102.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],102]],TagBoxNote -> "102"],
+StyleBox["102",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[102,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{20.`,0},{30.`,220.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],220]],TagBoxNote -> "220"],StyleBox["220",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[220,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{30.`,0},{40.`,167.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],167]],TagBoxNote -> "167"],
+StyleBox["167",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[167,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{40.`,0},{50.`,89.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],89]],TagBoxNote -> "89"],StyleBox["89",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[89,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{50.`,0},{60.`,48.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],48]],TagBoxNote -> "48"],
+StyleBox["48",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[48,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{60.`,0},{70.`,19.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],19]],TagBoxNote -> "19"],StyleBox["19",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[19,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{70.`,0},{80.`,6.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],6]],TagBoxNote -> "6"],StyleBox[
+"6",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[6,{}],"Tooltip"]]]},{TagBox[
+TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[
+{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{80.`,0},
+{90.`,1.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},Function[StatusArea[
+Slot[1],1]],TagBoxNote -> "1"],StyleBox["1",{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[1,{}],"Tooltip"]]]}}},{},{}}},{{},{},{},{},{},{},{},{},{}}},{AspectRatio -> NCache[
+Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {True,True},AxesLabel -> {None,None},AxesOrigin -> {-1.8`,0},FrameLabel -> {{None,None},{None,None}},FrameTicks -> {{Automatic,Automatic},{Automatic,Automatic}},GridLines -> {None,None},GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],Method -> CompressedData["1:eJzVVVlsDVEYnmotjX1rlBANEkvE0sTy4ujCtbZXbyshEsa9Z24P0znXf2ait94ssUQQmlqDNkFsfZBaKvoitfYB0VpKael2Q1MNIRHCOXPbXm6PCp6cZM78Z/7vX+efb+JW0zQtWlEUFsW3RYSZWpe2U5qlYxbDhSRKwUMM1cQsnVI91WcSarAQsKOZqy8Xkgnz6ap/rmW4hYEWIRA9+Nb+5GcP7fr5HmyYxPSH9E4VWvXi5NKpScTJ3v7GTgDCMh5oF+oj2LNU1S38n2TdkwsJ2YQ5VQ9/Q96gVTdh5VZ17IENgwodNTm5KMysvyg2k4dJxppq6abL9OtY6/tTYZFtCaY5EpOoTgFm5PeL2OpsRtB/d2nZw+I6BI+nxu5qiC9FErAvb2/d6NzHCKbkBfZvm16N4NbmAwvPXKqXgZX65UVKUw0C63xJakZcPYLYPSUvvrbcloHLL36clbGlCcHzScfODSl8gmCsI6Jg1c27MvCJjTvOrAzw6C1HJo4sGvECAdmhnFq/TppG2sWqqJdFjQiOpA4/m3v0GYJ3sdvv95h2VQbeN2zOo6ELeIGFq1sOX7/7GsHxqrgbSnRAArbfHyj2akRE3CQery3b9CmjuBbB2pZxys14XtiomClvJ598LQuPh12JtBa84i0bMfjb+lIuKK1LAp5Xk8MHgbcsKFQgiLdXmczz+JljkgeceopgdsWHJY6i6jbwGxmY9szvvSaOz0Rm0peGjbW8C5UV93pV3rogA+9U1iUU72tAcOn91/LswCMEi6alrCgbUi0DFzjjR1U2P0Bgp1zDZ8L7/E7J2Oxn4cM8SHBNcI4TqWV4VPDb88wEryVYJs1STeIOMxocMrI/hESV4eBX0DGTjM/R3st5vMZZ1xJz6ioCCPqsKK+acPpleCZDQ04doPoyiZvNN0wMapA4IjshzO5cWIqBcVxru9+Hex/AhXTua+1iajHspIx0pCNbSAcLs66CslSdYUmgOZqG3SbrNCHRvHnEm6nz6wc2kiBFJOAtpjKC6vOjGyclxj/4EiklA/XpxMCd/35EqzTAWKOQlWQBo7CYenB7cyR++Z/KjbM4E3fqV6Se7RJtS9B1ic7vEscUaoSH6BeaDCfn89/PZ29hwDXE+ENq7yUE1fDiX9kdOijWafQdfFA2/g=="],PlotRange -> {{0.`,90.`},{All,All}},PlotRangePadding -> {{Scaled[
+0.02`],Scaled[0.02`]},{Scaled[0.02`],Scaled[0.05`]}},Ticks -> {Automatic,Automatic}}],FormBox[
+FormBox[TemplateBox[{"\"Age\""},"SwatchLegend",DisplayFunction -> Function[FormBox[
+StyleBox[StyleBox[PaneBox[TagBox[GridBox[{{TagBox[GridBox[{{GraphicsBox[{Directive[
+PointSize[0.5`],AbsoluteThickness[1.6`],EdgeForm[Directive[GrayLevel[0],Thickness[
+Small],Opacity[0.623`]]],RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],RectangleBox[
+{0,0},{10,10},"RoundingRadius" -> 0]},AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,
+ImagePadding -> Automatic,BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[1]}},
+GridBoxAlignment -> {"Columns" -> {Center,Left},"Rows" -> {{Baseline}}},AutoDelete -> False,
+GridBoxDividers -> {"Columns" -> {{False}},"Rows" -> {{False}}},GridBoxItemSize -> {"Columns" -> {{All}},"Rows" -> {{All}}},
+GridBoxSpacings -> {"Columns" -> {{0.3`}},"Rows" -> {{0.5`}}}],"Grid"]}},GridBoxAlignment -> {"Columns" -> {{Left}},"Rows" -> {{Top}}},
+AutoDelete -> False,GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},
+GridBoxSpacings -> {"Columns" -> {{1}},"Rows" -> {{0}}}],"Grid"],Alignment -> Left,
+AppearanceElements -> None,ImageMargins -> {{5,5},{5,5}},ImageSizeAction -> "ResizeToFit"],
+LineIndent -> 0,StripOnInput -> False],{FontFamily -> "Arial"},Background -> Automatic,
+StripOnInput -> False],TraditionalForm]],RuleDelayed[InterpretationFunction,Function[
+RowBox[{"SwatchLegend","[",RowBox[{RowBox[{"{",RowBox[{RowBox[{"Directive","[",RowBox[
+{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[
+{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[Association["color" -> RGBColor[
+0.987148`,0.8073604000000001`,0.49470040000000004`]],"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[
+{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[
+{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.623`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}]}],"}"}],",",RowBox[{"{",Slot[1],"}"}],",",RowBox[
+{"LegendMarkers","\[Rule]",RowBox[{"{",RowBox[{"{","Automatic","}"}],"}"}]}],",",RowBox[
+{"LabelStyle","\[Rule]",RowBox[{"{","}"}]}],",",RowBox[{"LegendLayout","\[Rule]","\"Column\""}]}],"]"}]]],
+Editable -> True],TraditionalForm],TraditionalForm]},"Legended",DisplayFunction -> Function[
+GridBox[{{TagBox[ItemBox[PaneBox[TagBox[Slot[1],"SkipImageSizeLevel"],Alignment -> {Center,Baseline},
+BaselinePosition -> Baseline],DefaultBaseStyle -> "Labeled"],"SkipImageSizeLevel"],ItemBox[
+Slot[2],DefaultBaseStyle -> "LabeledLabel"]}},GridBoxAlignment -> {"Columns" -> {{Center}},"Rows" -> {{Center}}},
+AutoDelete -> False,GridBoxItemSize -> Automatic,BaselinePosition -> {1,1}]],InterpretationFunction -> Function[
+RowBox[{"Legended","[",RowBox[{Slot[1],",",RowBox[{"Placed","[",RowBox[{Slot[2],",","After"}],"]"}]}],"]"}]],
+Editable -> True],StandardForm],"Output",CellLabel -> "Out[31]= ",ExpressionUUID -> "7f388bc9-e354-4d1e-a762-527813d7204b"],Cell[
+BoxData[
+TemplateBox[{GraphicsBox[{{Opacity[0],PointBox[{{-0.19605693430634064`,-3.559`},{2.1960569343063403`,83.979`}}]},{CapForm[
+None],Directive[RGBColor[0.982864`,0.7431472`,0.3262672`]],{{},{Directive[RGBColor[
+0.982864`,0.7431472`,0.3262672`]],{{Directive[RGBColor[0.431296`,0.709773`,0.927077`]],TagBox[
+TooltipBox[TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[
+0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],GraphicsGroupBox[{Antialiasing -> False,PolygonBox[
+{{0.8039430656936596`,38},{1.1960569343063403`,38},{1.1960569343063403`,20},{0.8039430656936596`,20}}],{},{{},{}},{},{GrayLevel[
+0],GrayLevel[1],LineBox[{{1.1960569343063403`,28},{0.8039430656936597`,28}}]},{},{GrayLevel[
+0],GrayLevel[0.5`],LineBox[{{{1.`,20},{1.`,0.42`}},{{1.`,38},{1.`,80}}}]},{GrayLevel[
+0],GrayLevel[0.5`],LineBox[{{{1.0980284671531702`,0.42`},{0.9019715328468298`,0.42`}},{{1.0980284671531702`,80},{0.9019715328468298`,80}}}]},{}}]}],
+"DelayedMouseEffectStyle"],StyleBox[TagBox[GridBox[{{StyleBox["\"max\"",Bold,StripOnInput -> False],"80"},{StyleBox[
+"\"75%\"",Bold,StripOnInput -> False],"38"},{StyleBox["\"median\"",Bold,StripOnInput -> False],"28"},{StyleBox[
+"\"25%\"",Bold,StripOnInput -> False],"20"},{StyleBox["\"min\"",Bold,StripOnInput -> False],"0.42`"}},
+GridBoxAlignment -> {"Columns" -> {Center,".",{Left}}},AutoDelete -> False,GridBoxDividers -> {"Columns" -> {Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]},"Rows" -> {Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]}},GridBoxFrame -> {"ColumnsIndexed" -> {{{1,-1},{1,-1}} -> GrayLevel[
+0]}},GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},BaseStyle -> Directive[
+AbsoluteThickness[1],Dashing[{}]]],"Grid"],{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[Grid[{{Style["max",Bold],80},{Style["75%",Bold],38},{Style["median",
+Bold],28},{Style["25%",Bold],20},{Style["min",Bold],0.42`}},Dividers -> {{Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]},{Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]}},Alignment -> {{Center,".",{Left}}},
+Frame -> GrayLevel[0],BaseStyle -> Directive[AbsoluteThickness[1],Dashing[{}]]],{}],
+"Tooltip"]]]}}},{},{}}},{{{{{{{},{}},{}}},{}},{}},{}},{}},{DisplayFunction -> Identity,AspectRatio -> NCache[
+Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {False,False},AxesLabel -> {None,None},AxesOrigin -> {0.7843373722630256`,-3.559`},Frame -> True,FrameLabel -> {{None,None},{None,None}},FrameTicks -> CompressedData[
+"1:eJxTTMoPSmNiYGAoZgESPpnFJai8Yk4gw7G0JD83sSQzGZWHpo8ZN6+IAQw+2EO0sAMJt/yiXKf8CogAN5AISc0tyEksSQUJMiJrzgRpDQbpCS5ITE4tMizmBykvSkzJLMnMz0vMARmF6paiPys/XvJNarAH60VzCzvTg3PPdr6kl1vAWrC548+//hk8yp8H2h2jMTV4YwoAE4PZHA=="],GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],PlotRangePadding -> {{Scaled[0.05`],Scaled[0.05`]},{Scaled[
+0.05`],Scaled[0.05`]}},Ticks -> CompressedData["1:eJxTTMoPSmNiYGAoZgESPpnFJWnMuHlFDGDwwR6ihR1IuOUX5TrlV0AEuIFESGpuQU5iSSpIkBFZcyZIazBIT3BBYnJqkWExP0h5UWJKZklmfl5iDsgoVLcU/Vn58ZJvUoM9WC+aW9iZHpx7tvMlvdwC1oLNHX/+9c/gUf5Mf3cUcwIJx9KS/NzEksxkAPmUa/M="]}],FormBox[
+FormBox[TemplateBox[{"\"Age\""},"SwatchLegend",DisplayFunction -> Function[FormBox[
+StyleBox[StyleBox[PaneBox[TagBox[GridBox[{{TagBox[GridBox[{{GraphicsBox[{Directive[
+EdgeForm[Directive[Opacity[0.3`],GrayLevel[0]]],PointSize[0.5`],AbsoluteThickness[
+1.6`],RGBColor[0.431296`,0.709773`,0.927077`]],RectangleBox[{0,0},{10,10},"RoundingRadius" -> 0]},
+AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,ImagePadding -> Automatic,
+BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[1]}},GridBoxAlignment -> {"Columns" -> {Center,Left},"Rows" -> {{Baseline}}},
+AutoDelete -> False,GridBoxDividers -> {"Columns" -> {{False}},"Rows" -> {{False}}},
+GridBoxItemSize -> {"Columns" -> {{All}},"Rows" -> {{All}}},GridBoxSpacings -> {"Columns" -> {{0.3`}},"Rows" -> {{0.5`}}}],
+"Grid"]}},GridBoxAlignment -> {"Columns" -> {{Left}},"Rows" -> {{Top}}},AutoDelete -> False,
+GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},GridBoxSpacings -> {"Columns" -> {{1}},"Rows" -> {{0}}}],
+"Grid"],Alignment -> Left,AppearanceElements -> None,ImageMargins -> {{5,5},{5,5}},
+ImageSizeAction -> "ResizeToFit"],LineIndent -> 0,StripOnInput -> False],{FontFamily -> "Arial"},
+Background -> Automatic,StripOnInput -> False],TraditionalForm]],RuleDelayed[InterpretationFunction,
+Function[RowBox[{"SwatchLegend","[",RowBox[{RowBox[{"{",RowBox[{"Directive","[",TemplateBox[
+Association["color" -> RGBColor[0.431296`,0.709773`,0.927077`]],"RGBColorSwatchTemplate"],"]"}],"}"}],",",RowBox[
+{"{",Slot[1],"}"}],",",RowBox[{"LegendMarkers","\[Rule]",RowBox[{"{",RowBox[{"{","Automatic","}"}],"}"}]}],",",RowBox[
+{"LabelStyle","\[Rule]",RowBox[{"{","}"}]}],",",RowBox[{"LegendLayout","\[Rule]","\"Column\""}]}],"]"}]]],
+Editable -> True],TraditionalForm],TraditionalForm]},"Legended",DisplayFunction -> Function[
+GridBox[{{TagBox[ItemBox[PaneBox[TagBox[Slot[1],"SkipImageSizeLevel"],Alignment -> {Center,Baseline},
+BaselinePosition -> Baseline],DefaultBaseStyle -> "Labeled"],"SkipImageSizeLevel"],ItemBox[
+Slot[2],DefaultBaseStyle -> "LabeledLabel"]}},GridBoxAlignment -> {"Columns" -> {{Center}},"Rows" -> {{Center}}},
+AutoDelete -> False,GridBoxItemSize -> Automatic,BaselinePosition -> {1,1}]],InterpretationFunction -> Function[
+RowBox[{"Legended","[",RowBox[{Slot[1],",",RowBox[{"Placed","[",RowBox[{Slot[2],",","After"}],"]"}]}],"]"}]],
+Editable -> True],StandardForm],"Output",CellLabel -> "Out[32]= ",ExpressionUUID -> "d4e8a734-1842-4cd2-9063-343bd751ccd3"],Cell[
+BoxData[
+TemplateBox[{GraphicsBox[{{Directive[EdgeForm[Directive[Thickness[Small],Opacity[
+0.609`]]],RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],{{},{Directive[
+EdgeForm[Directive[Thickness[Small],Opacity[0.609`]]],RGBColor[0.987148`,0.8073604000000001`,
+0.49470040000000004`]],{{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[
+CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[
+0.66`]}],{},{}],RectangleBox[{0.`,0},{50.`,730.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],730]],TagBoxNote -> "730"],StyleBox["730",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[730,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{50.`,0},{100.`,108.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],108]],TagBoxNote -> "108"],
+StyleBox["108",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[108,{}],
+"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue[
+"MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},
+{}],RectangleBox[{100.`,0},{150.`,24.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},
+Function[StatusArea[Slot[1],24]],TagBoxNote -> "24"],StyleBox["24",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[24,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[
+{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{150.`,0},{200.`,9.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],9]],TagBoxNote -> "9"],StyleBox[
+"9",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[9,{}],"Tooltip"]]]},{TagBox[
+TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[
+{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{200.`,0},
+{250.`,11.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},Function[StatusArea[
+Slot[1],11]],TagBoxNote -> "11"],StyleBox["11",{},StripOnInput -> False]],Function[
+Annotation[Slot[1],Style[11,{}],"Tooltip"]]]},{TagBox[TooltipBox[TagBox[{TagBox[DynamicBox[
+{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[0.5`],AbsoluteThickness[
+1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{250.`,0},{300.`,6.`},"RoundingRadius" -> 0]}],
+"DelayedMouseEffectStyle"]},Function[StatusArea[Slot[1],6]],TagBoxNote -> "6"],StyleBox[
+"6",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[6,{}],"Tooltip"]]]},{TagBox[
+TooltipBox[TagBox[{TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[
+{GrayLevel[0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],RectangleBox[{500.`,0},
+{550.`,3.`},"RoundingRadius" -> 0]}],"DelayedMouseEffectStyle"]},Function[StatusArea[
+Slot[1],3]],TagBoxNote -> "3"],StyleBox["3",{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[3,{}],"Tooltip"]]]}}},{},{}}},{{},{},{},{},{},{},{}}},{AspectRatio -> NCache[
+Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {True,True},AxesLabel -> {None,None},AxesOrigin -> {-11.`,0},FrameLabel -> {{None,None},{None,None}},FrameTicks -> {{Automatic,Automatic},{Automatic,Automatic}},GridLines -> {None,None},GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],Method -> CompressedData["1:eJzVVVlsDVEYnmotjX1rlBANEkvE0sTy4ujCtbZXbyshEsa9Z24P0znXf2ait94ssUQQmlqDNkFsfZBaKvoitfYB0VpKael2Q1MNIRHCOXPbXm6PCp6cZM78Z/7vX+efb+JW0zQtWlEUFsW3RYSZWpe2U5qlYxbDhSRKwUMM1cQsnVI91WcSarAQsKOZqy8Xkgnz6ap/rmW4hYEWIRA9+Nb+5GcP7fr5HmyYxPSH9E4VWvXi5NKpScTJ3v7GTgDCMh5oF+oj2LNU1S38n2TdkwsJ2YQ5VQ9/Q96gVTdh5VZ17IENgwodNTm5KMysvyg2k4dJxppq6abL9OtY6/tTYZFtCaY5EpOoTgFm5PeL2OpsRtB/d2nZw+I6BI+nxu5qiC9FErAvb2/d6NzHCKbkBfZvm16N4NbmAwvPXKqXgZX65UVKUw0C63xJakZcPYLYPSUvvrbcloHLL36clbGlCcHzScfODSl8gmCsI6Jg1c27MvCJjTvOrAzw6C1HJo4sGvECAdmhnFq/TppG2sWqqJdFjQiOpA4/m3v0GYJ3sdvv95h2VQbeN2zOo6ELeIGFq1sOX7/7GsHxqrgbSnRAArbfHyj2akRE3CQery3b9CmjuBbB2pZxys14XtiomClvJ598LQuPh12JtBa84i0bMfjb+lIuKK1LAp5Xk8MHgbcsKFQgiLdXmczz+JljkgeceopgdsWHJY6i6jbwGxmY9szvvSaOz0Rm0peGjbW8C5UV93pV3rogA+9U1iUU72tAcOn91/LswCMEi6alrCgbUi0DFzjjR1U2P0Bgp1zDZ8L7/E7J2Oxn4cM8SHBNcI4TqWV4VPDb88wEryVYJs1STeIOMxocMrI/hESV4eBX0DGTjM/R3st5vMZZ1xJz6ioCCPqsKK+acPpleCZDQ04doPoyiZvNN0wMapA4IjshzO5cWIqBcVxru9+Hex/AhXTua+1iajHspIx0pCNbSAcLs66CslSdYUmgOZqG3SbrNCHRvHnEm6nz6wc2kiBFJOAtpjKC6vOjGyclxj/4EiklA/XpxMCd/35EqzTAWKOQlWQBo7CYenB7cyR++Z/KjbM4E3fqV6Se7RJtS9B1ic7vEscUaoSH6BeaDCfn89/PZ29hwDXE+ENq7yUE1fDiX9kdOijWafQdfFA2/g=="],PlotRange -> {{0.`,550.`},{All,All}},PlotRangePadding -> {{Scaled[
+0.02`],Scaled[0.02`]},{Scaled[0.02`],Scaled[0.05`]}},Ticks -> {Automatic,Automatic}}],FormBox[
+FormBox[TemplateBox[{"\"Fare\""},"SwatchLegend",DisplayFunction -> Function[FormBox[
+StyleBox[StyleBox[PaneBox[TagBox[GridBox[{{TagBox[GridBox[{{GraphicsBox[{Directive[
+PointSize[0.5`],AbsoluteThickness[1.6`],EdgeForm[Directive[GrayLevel[0],Thickness[
+Small],Opacity[0.609`]]],RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],RectangleBox[
+{0,0},{10,10},"RoundingRadius" -> 0]},AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,
+ImagePadding -> Automatic,BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[1]}},
+GridBoxAlignment -> {"Columns" -> {Center,Left},"Rows" -> {{Baseline}}},AutoDelete -> False,
+GridBoxDividers -> {"Columns" -> {{False}},"Rows" -> {{False}}},GridBoxItemSize -> {"Columns" -> {{All}},"Rows" -> {{All}}},
+GridBoxSpacings -> {"Columns" -> {{0.3`}},"Rows" -> {{0.5`}}}],"Grid"]}},GridBoxAlignment -> {"Columns" -> {{Left}},"Rows" -> {{Top}}},
+AutoDelete -> False,GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},
+GridBoxSpacings -> {"Columns" -> {{1}},"Rows" -> {{0}}}],"Grid"],Alignment -> Left,
+AppearanceElements -> None,ImageMargins -> {{5,5},{5,5}},ImageSizeAction -> "ResizeToFit"],
+LineIndent -> 0,StripOnInput -> False],{FontFamily -> "Arial"},Background -> Automatic,
+StripOnInput -> False],TraditionalForm]],RuleDelayed[InterpretationFunction,Function[
+RowBox[{"SwatchLegend","[",RowBox[{RowBox[{"{",RowBox[{RowBox[{"Directive","[",RowBox[
+{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[
+{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[Association["color" -> RGBColor[
+0.987148`,0.8073604000000001`,0.49470040000000004`]],"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[
+{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[
+{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[
+{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.609`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.987148`,0.8073604000000001`,0.49470040000000004`]],
+"RGBColorSwatchTemplate"]}],"]"}]}],"}"}],",",RowBox[{"{",Slot[1],"}"}],",",RowBox[
+{"LegendMarkers","\[Rule]",RowBox[{"{",RowBox[{"{","Automatic","}"}],"}"}]}],",",RowBox[
+{"LabelStyle","\[Rule]",RowBox[{"{","}"}]}],",",RowBox[{"LegendLayout","\[Rule]","\"Column\""}]}],"]"}]]],
+Editable -> True],TraditionalForm],TraditionalForm]},"Legended",DisplayFunction -> Function[
+GridBox[{{TagBox[ItemBox[PaneBox[TagBox[Slot[1],"SkipImageSizeLevel"],Alignment -> {Center,Baseline},
+BaselinePosition -> Baseline],DefaultBaseStyle -> "Labeled"],"SkipImageSizeLevel"],ItemBox[
+Slot[2],DefaultBaseStyle -> "LabeledLabel"]}},GridBoxAlignment -> {"Columns" -> {{Center}},"Rows" -> {{Center}}},
+AutoDelete -> False,GridBoxItemSize -> Automatic,BaselinePosition -> {1,1}]],InterpretationFunction -> Function[
+RowBox[{"Legended","[",RowBox[{Slot[1],",",RowBox[{"Placed","[",RowBox[{Slot[2],",","After"}],"]"}]}],"]"}]],
+Editable -> True],StandardForm],"Output",CellLabel -> "Out[33]= ",ExpressionUUID -> "51659dbb-ca2f-4d17-92eb-8c95d3e2c4af"],Cell[
+BoxData[
+TemplateBox[{GraphicsBox[{{Opacity[0],PointBox[{{-0.19605693430634064`,-25.616460000000004`},{2.1960569343063403`,537.94566`}}]},{CapForm[
+None],Directive[RGBColor[0.982864`,0.7431472`,0.3262672`]],{{},{Directive[RGBColor[
+0.982864`,0.7431472`,0.3262672`]],{{Directive[RGBColor[0.431296`,0.709773`,0.927077`]],TagBox[
+TooltipBox[TagBox[DynamicBox[{FEPrivate`If[CurrentValue["MouseOver"],EdgeForm[{GrayLevel[
+0.5`],AbsoluteThickness[1.5`],Opacity[0.66`]}],{},{}],GraphicsGroupBox[{Antialiasing -> False,PolygonBox[
+{{0.8039430656936596`,31},{1.1960569343063403`,31},{1.1960569343063403`,7.9031`},{0.8039430656936596`,7.9031`}}],{},{{},{}},{},{GrayLevel[
+0],GrayLevel[1],LineBox[{{1.1960569343063403`,14.4542`},{0.8039430656936597`,14.4542`}}]},{},{GrayLevel[
+0],GrayLevel[0.5`],LineBox[{{{1.`,7.9031`},{1.`,0}},{{1.`,31},{1.`,512.3292`}}}]},{GrayLevel[
+0],GrayLevel[0.5`],LineBox[{{{1.0980284671531702`,0},{0.9019715328468298`,0}},{{1.0980284671531702`,512.3292`},{0.9019715328468298`,512.3292`}}}]},{}}]}],
+"DelayedMouseEffectStyle"],StyleBox[TagBox[GridBox[{{StyleBox["\"max\"",Bold,StripOnInput -> False],"512.3292`"},{StyleBox[
+"\"75%\"",Bold,StripOnInput -> False],"31"},{StyleBox["\"median\"",Bold,StripOnInput -> False],"14.4542`"},{StyleBox[
+"\"25%\"",Bold,StripOnInput -> False],"7.9031`"},{StyleBox["\"min\"",Bold,StripOnInput -> False],"0"}},
+GridBoxAlignment -> {"Columns" -> {Center,".",{Left}}},AutoDelete -> False,GridBoxDividers -> {"Columns" -> {Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]},"Rows" -> {Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]}},GridBoxFrame -> {"ColumnsIndexed" -> {{{1,-1},{1,-1}} -> GrayLevel[
+0]}},GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},BaseStyle -> Directive[
+AbsoluteThickness[1],Dashing[{}]]],"Grid"],{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[Grid[{{Style["max",Bold],512.3292`},{Style["75%",Bold],31},{Style["median",
+Bold],14.4542`},{Style["25%",Bold],7.9031`},{Style["min",Bold],0}},Dividers -> {{Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]},{Directive[
+GrayLevel[0.3`]],{Directive[GrayLevel[0.3`]]},Directive[GrayLevel[0.3`]]}},Alignment -> {{Center,".",{Left}}},
+Frame -> GrayLevel[0],BaseStyle -> Directive[AbsoluteThickness[1],Dashing[{}]]],{}],
+"Tooltip"]]]}}},{},{}}},{{{{{{{},{}},{}}},{}},{}},{}},{}},{DisplayFunction -> Identity,AspectRatio -> NCache[
+Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {False,False},AxesLabel -> {None,None},AxesOrigin -> {0.7843373722630256`,-25.616460000000004`},Frame -> True,FrameLabel -> {{None,None},{None,None}},FrameTicks -> CompressedData[
+"1:eJxTTMoPSmNiYGAoZgESPpnFJai8Yk4gw7G0JD83sSQzGZWHpo8ZN6+IAQw+2EO0sAMJt/yiXKf8CogAN5AISc0tyEksSQUJMiJrzgRpDQbpCS5ITE4tMizmBykvSkzJLMnMz0vMARmF6paiPys/XvJNarAH60VzCzvTg3PPdr6kl1vAWrC548+//hk8yp8H2h2jMTV4YwoAE4PZHA=="],GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],PlotRangePadding -> {{Scaled[0.05`],Scaled[0.05`]},{Scaled[
+0.05`],Scaled[0.05`]}},Ticks -> CompressedData["1:eJxTTMoPSmNiYGAoZgESPpnFJWnMuHlFDGDwwR6ihR1IuOUX5TrlV0AEuIFESGpuQU5iSSpIkBFZcyZIazBIT3BBYnJqkWExP0h5UWJKZklmfl5iDsgoVLcU/Vn58ZJvUoM9WC+aW9iZHpx7tvMlvdwC1oLNHX/+9c/gUf5Mf3cUcwIJx9KS/NzEksxkAPmUa/M="]}],FormBox[
+FormBox[TemplateBox[{"\"Fare\""},"SwatchLegend",DisplayFunction -> Function[FormBox[
+StyleBox[StyleBox[PaneBox[TagBox[GridBox[{{TagBox[GridBox[{{GraphicsBox[{Directive[
+EdgeForm[Directive[Opacity[0.3`],GrayLevel[0]]],PointSize[0.5`],AbsoluteThickness[
+1.6`],RGBColor[0.431296`,0.709773`,0.927077`]],RectangleBox[{0,0},{10,10},"RoundingRadius" -> 0]},
+AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,ImagePadding -> Automatic,
+BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[1]}},GridBoxAlignment -> {"Columns" -> {Center,Left},"Rows" -> {{Baseline}}},
+AutoDelete -> False,GridBoxDividers -> {"Columns" -> {{False}},"Rows" -> {{False}}},
+GridBoxItemSize -> {"Columns" -> {{All}},"Rows" -> {{All}}},GridBoxSpacings -> {"Columns" -> {{0.3`}},"Rows" -> {{0.5`}}}],
+"Grid"]}},GridBoxAlignment -> {"Columns" -> {{Left}},"Rows" -> {{Top}}},AutoDelete -> False,
+GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},GridBoxSpacings -> {"Columns" -> {{1}},"Rows" -> {{0}}}],
+"Grid"],Alignment -> Left,AppearanceElements -> None,ImageMargins -> {{5,5},{5,5}},
+ImageSizeAction -> "ResizeToFit"],LineIndent -> 0,StripOnInput -> False],{FontFamily -> "Arial"},
+Background -> Automatic,StripOnInput -> False],TraditionalForm]],RuleDelayed[InterpretationFunction,
+Function[RowBox[{"SwatchLegend","[",RowBox[{RowBox[{"{",RowBox[{"Directive","[",TemplateBox[
+Association["color" -> RGBColor[0.431296`,0.709773`,0.927077`]],"RGBColorSwatchTemplate"],"]"}],"}"}],",",RowBox[
+{"{",Slot[1],"}"}],",",RowBox[{"LegendMarkers","\[Rule]",RowBox[{"{",RowBox[{"{","Automatic","}"}],"}"}]}],",",RowBox[
+{"LabelStyle","\[Rule]",RowBox[{"{","}"}]}],",",RowBox[{"LegendLayout","\[Rule]","\"Column\""}]}],"]"}]]],
+Editable -> True],TraditionalForm],TraditionalForm]},"Legended",DisplayFunction -> Function[
+GridBox[{{TagBox[ItemBox[PaneBox[TagBox[Slot[1],"SkipImageSizeLevel"],Alignment -> {Center,Baseline},
+BaselinePosition -> Baseline],DefaultBaseStyle -> "Labeled"],"SkipImageSizeLevel"],ItemBox[
+Slot[2],DefaultBaseStyle -> "LabeledLabel"]}},GridBoxAlignment -> {"Columns" -> {{Center}},"Rows" -> {{Center}}},
+AutoDelete -> False,GridBoxItemSize -> Automatic,BaselinePosition -> {1,1}]],InterpretationFunction -> Function[
+RowBox[{"Legended","[",RowBox[{Slot[1],",",RowBox[{"Placed","[",RowBox[{Slot[2],",","After"}],"]"}]}],"]"}]],
+Editable -> True],StandardForm],"Output",CellLabel -> "Out[34]= ",ExpressionUUID -> "59a3aa75-2473-4711-9698-df011f711b2a"],Cell[
+BoxData[
+TemplateBox[{GraphicsBox[{{Opacity[0],PointBox[{{0.0195484340859432`,0.`},{4.902403495994173`,0.`}}]},{{},{Directive[
+EdgeForm[Directive[Thickness[Small],Opacity[0.6719999999999999`]]],RGBColor[0.982864`,
+0.7431472`,0.3262672`]],{{Directive[EdgeForm[Directive[Thickness[Small],Opacity[0.6719999999999999`]]],
+RGBColor[0.982864`,0.7431472`,0.3262672`]],TagBox[TooltipBox[TagBox[RectangleBox[
+{0.5487982520029133`,0.`},{1.4512017479970867`,468.`},"RoundingRadius" -> 0],Function[
+StatusArea[Slot[1],468]],TagBoxNote -> "468"],StyleBox["468",{},StripOnInput -> False]],
+Function[Annotation[Slot[1],Style[468,{}],"Tooltip"]]]},{Directive[EdgeForm[Directive[
+Thickness[Small],Opacity[0.6719999999999999`]]],RGBColor[0.982864`,0.7431472`,0.3262672`]],TagBox[
+TooltipBox[TagBox[RectangleBox[{1.5487982520029133`,0.`},{2.4512017479970867`,233.`},
+"RoundingRadius" -> 0],Function[StatusArea[Slot[1],233]],TagBoxNote -> "233"],StyleBox[
+"233",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[233,{}],"Tooltip"]]]},{Directive[
+EdgeForm[Directive[Thickness[Small],Opacity[0.6719999999999999`]]],RGBColor[0.982864`,
+0.7431472`,0.3262672`]],TagBox[TooltipBox[TagBox[RectangleBox[{2.5487982520029133`,0.`},
+{3.4512017479970867`,81.`},"RoundingRadius" -> 0],Function[StatusArea[Slot[1],81]],
+TagBoxNote -> "81"],StyleBox["81",{},StripOnInput -> False]],Function[Annotation[
+Slot[1],Style[81,{}],"Tooltip"]]]},{Directive[EdgeForm[Directive[Thickness[Small],
+Opacity[0.6719999999999999`]]],RGBColor[0.982864`,0.7431472`,0.3262672`]],TagBox[
+TooltipBox[TagBox[RectangleBox[{3.5487982520029133`,0.`},{4.451201747997087`,109.`},
+"RoundingRadius" -> 0],Function[StatusArea[Slot[1],109]],TagBoxNote -> "109"],StyleBox[
+"109",{},StripOnInput -> False]],Function[Annotation[Slot[1],Style[109,{}],"Tooltip"]]]}}},{},{}},{},{},{},{},{StyleBox[
+{Antialiasing -> False,{Directive[Thickness[Tiny]],{LineBox[{{0.0195484340859432`,0.`},{4.991036562272396`,0.`}}]},StyleBox[
+{},{"GraphicsLabel"},StripOnInput -> False]},StyleBox[{{Directive[Thickness[Tiny]],LineBox[
+{{0.5487982520029133`,0.`},Offset[{-1.102182119232618`*^-15,-6.`},{0.5487982520029133`,0.`}]}],LineBox[
+{{4.451201747997087`,0.`},Offset[{-1.102182119232618`*^-15,-6.`},{4.451201747997087`,0.`}]}],{{},{},{},{},{LineBox[
+{{1.4512017479970867`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{1.4512017479970867`,0.`}]}],LineBox[
+{{1.5487982520029133`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{1.5487982520029133`,0.`}]}],LineBox[
+{{2.4512017479970867`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{2.4512017479970867`,0.`}]}],LineBox[
+{{2.5487982520029133`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{2.5487982520029133`,0.`}]}],LineBox[
+{{3.4512017479970867`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{3.4512017479970867`,0.`}]}],LineBox[
+{{3.5487982520029133`,0.`},Offset[{-7.347880794884119`*^-16,-4.`},{3.5487982520029133`,0.`}]}]},{}}},StyleBox[
+{Directive[Thickness[Tiny]],Directive[Thickness[Tiny]],StyleBox[{InsetBox[FormBox[
+"\"male\"",TraditionalForm],Offset[{0,-2},{1.`,0.`}],NCache[ImageScaled[{Rational[
+1,2],1}],ImageScaled[{0.5`,1}]],Automatic,{1,0}],InsetBox[FormBox["1",TraditionalForm],
+Offset[{0,-2},{2.`,0.`}],NCache[ImageScaled[{Rational[1,2],1}],ImageScaled[{0.5`,1}]],
+Automatic,{1,0}]},{{}},StripOnInput -> False]},{"GraphicsLabel"},StripOnInput -> False]},
+{"GraphicsTicks"},StripOnInput -> False]},{"GraphicsAxes"},StripOnInput -> False]}},
+{DisplayFunction -> Identity,AspectRatio -> NCache[Power[GoldenRatio,-1],0.6180339887498948`],Axes -> {False,True},AxesLabel -> {None,None},AxesOrigin -> {0.0195484340859432`,0.`},CoordinatesToolOptions -> CompressedData[
+"1:eJxTTMoPSmNiYGAoZgESPpnFJQheUGlOajA/kOGSWVyQk1jpVpqXXJKZn5fGCFLBASTgIqgmwOU9U1LzSjJLKhHyAYlFUHkQLzgnvyQTxAMT5OgDKUBzsTCQ4ZxfkJmaEpaYU5o6WF0NAFk5TEk="],FrameLabel -> {{None,None},{None,None}},FrameTicks -> {{Automatic,Automatic},{Automatic,Automatic}},GridLines -> {None,None},GridLinesStyle -> Directive[
+GrayLevel[0.5`,0.4`]],PlotRange -> {{All,All},{All,All}},PlotRangePadding -> {{Scaled[
+0.02`],Scaled[0.02`]},{Scaled[0.02`],Scaled[0.05`]}},Ticks -> {None,Automatic}}],FormBox[
+FormBox[TemplateBox[{"\"Not Survived\"","\"Survived\""},"SwatchLegend",DisplayFunction -> Function[
+FormBox[StyleBox[StyleBox[PaneBox[TagBox[GridBox[{{TagBox[GridBox[{{GraphicsBox[{Directive[
+PointSize[0.5`],AbsoluteThickness[1.6`],EdgeForm[Directive[GrayLevel[0],Thickness[
+Small],Opacity[0.6719999999999999`]]],RGBColor[0.982864`,0.7431472`,0.3262672`]],RectangleBox[
+{0,0},{10,10},"RoundingRadius" -> 0]},AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,
+ImagePadding -> Automatic,BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[1]},{GraphicsBox[
+{Directive[PointSize[0.5`],AbsoluteThickness[1.6`],EdgeForm[Directive[GrayLevel[0],
+Thickness[Small],Opacity[0.6719999999999999`]]],RGBColor[0.982864`,0.7431472`,0.3262672`]],RectangleBox[
+{0,0},{10,10},"RoundingRadius" -> 0]},AspectRatio -> Full,ImageSize -> {10,10},PlotRangePadding -> None,
+ImagePadding -> Automatic,BaselinePosition -> (Scaled[0.1`] -> Baseline)],Slot[2]}},
+GridBoxAlignment -> {"Columns" -> {Center,Left},"Rows" -> {{Baseline}}},AutoDelete -> False,
+GridBoxDividers -> {"Columns" -> {{False}},"Rows" -> {{False}}},GridBoxItemSize -> {"Columns" -> {{All}},"Rows" -> {{All}}},
+GridBoxSpacings -> {"Columns" -> {{0.3`}},"Rows" -> {{0.5`}}}],"Grid"]}},GridBoxAlignment -> {"Columns" -> {{Left}},"Rows" -> {{Top}}},
+AutoDelete -> False,GridBoxItemSize -> {"Columns" -> {{Automatic}},"Rows" -> {{Automatic}}},
+GridBoxSpacings -> {"Columns" -> {{1}},"Rows" -> {{0}}}],"Grid"],Alignment -> Left,
+AppearanceElements -> None,ImageMargins -> {{5,5},{5,5}},ImageSizeAction -> "ResizeToFit"],
+LineIndent -> 0,StripOnInput -> False],{FontFamily -> "Arial"},Background -> Automatic,
+StripOnInput -> False],TraditionalForm]],RuleDelayed[InterpretationFunction,Function[
+RowBox[{"SwatchLegend","[",RowBox[{RowBox[{"{",RowBox[{RowBox[{"Directive","[",RowBox[
+{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[{"Thickness","[","Small","]"}],",",RowBox[
+{"Opacity","[","0.6719999999999999`","]"}]}],"]"}],"]"}],",",TemplateBox[Association[
+"color" -> RGBColor[0.982864`,0.7431472`,0.3262672`]],"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[
+{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[
+{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.6719999999999999`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.982864`,0.7431472`,0.3262672`]],"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[
+{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[
+{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.6719999999999999`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.982864`,0.7431472`,0.3262672`]],"RGBColorSwatchTemplate"]}],"]"}],",",RowBox[
+{"Directive","[",RowBox[{RowBox[{"EdgeForm","[",RowBox[{"Directive","[",RowBox[{RowBox[
+{"Thickness","[","Small","]"}],",",RowBox[{"Opacity","[","0.6719999999999999`","]"}]}],"]"}],"]"}],",",TemplateBox[
+Association["color" -> RGBColor[0.982864`,0.7431472`,0.3262672`]],"RGBColorSwatchTemplate"]}],"]"}]}],"}"}],",",RowBox[
+{"{",RowBox[{Slot[1],",",Slot[2]}],"}"}],",",RowBox[{"LegendMarkers","\[Rule]",RowBox[
+{"{",RowBox[{"{","Automatic","}"}],"}"}]}],",",RowBox[{"LabelStyle","\[Rule]",RowBox[
+{"{",RowBox[{RowBox[{"{","}"}],",",RowBox[{"{","}"}]}],"}"}]}],",",RowBox[{"LegendLayout","\[Rule]","\"Column\""}]}],"]"}]]],
+Editable -> True],TraditionalForm],TraditionalForm]},"Legended",DisplayFunction -> Function[
+GridBox[{{TagBox[ItemBox[PaneBox[TagBox[Slot[1],"SkipImageSizeLevel"],Alignment -> {Center,Baseline},
+BaselinePosition -> Baseline],DefaultBaseStyle -> "Labeled"],"SkipImageSizeLevel"],ItemBox[
+Slot[2],DefaultBaseStyle -> "LabeledLabel"]}},GridBoxAlignment -> {"Columns" -> {{Center}},"Rows" -> {{Center}}},
+AutoDelete -> False,GridBoxItemSize -> Automatic,BaselinePosition -> {1,1}]],InterpretationFunction -> Function[
+RowBox[{"Legended","[",RowBox[{Slot[1],",",RowBox[{"Placed","[",RowBox[{Slot[2],",","After"}],"]"}]}],"]"}]],
+Editable -> True],StandardForm],"Output",CellLabel -> "Out[40]= ",ExpressionUUID -> "428938f2-15df-4a38-9b85-85d9186952d6"]},
+Open],ExpressionUUID -> "d9efd50b-15bc-44b9-b600-ab9d85863f0f"],Cell[
+BoxData[RowBox[
+{"\n","\[NonBreakingSpace]"}]],"Input",ExpressionUUID -> "7e492e13-7aa1-4997-b99a-3eb41c2aba72"],Cell[
+BoxData[
+{RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","1"}],":"," ",RowBox[{"Load"," ","Titanic"," ","Dataset"}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"titanicData"," ","="," ",RowBox[{"ExampleData","[",RowBox[{"{",RowBox[{"\"Dataset\"",","," ","\"Titanic\""}],"}"}],"]"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","2"}],":"," ",RowBox[
+{RowBox[{"Data"," ","Cleaning"}]," ","-"," ",RowBox[{"Remove"," ","rows"," ","with"," ","any"," ","missing"," ","values"}]}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"titanicDataCleaned"," ","="," ",RowBox[{"Select","[",RowBox[{"titanicData",","," ",RowBox[
+{RowBox[{"FreeQ","[",RowBox[{"#",","," ",RowBox[{"Missing","[","]"}]}],"]"}]," ","&"}]}],"]"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","3"}],":"," ",RowBox[
+{"Extract"," ","relevant"," ","columns"}]}]," ","*)"}],"\n",RowBox[{RowBox[{"passengerClass"," ","="," ",RowBox[
+{"titanicDataCleaned","[",RowBox[{"[",RowBox[{"All",","," ","\"Pclass\""}],"]"}],"]"}]}],";"}]}],"\n",RowBox[
+{RowBox[{"gender"," ","="," ",RowBox[{RowBox[{RowBox[{"If","[",RowBox[{RowBox[{"#"," ","=="," ","\"male\""}],","," ","1",","," ","0"}],"]"}]," ","&"}]," ","/@"," ",RowBox[
+{"titanicDataCleaned","[",RowBox[{"[",RowBox[{"All",","," ","\"Sex\""}],"]"}],"]"}]}]}],";"}],"\n",RowBox[
+{RowBox[{"survived"," ","="," ",RowBox[{"titanicDataCleaned","[",RowBox[{"[",RowBox[
+{"All",","," ","\"Survived\""}],"]"}],"]"}]}],";"}],"\n",RowBox[{RowBox[{"age"," ","="," ",RowBox[
+{"titanicDataCleaned","[",RowBox[{"[",RowBox[{"All",","," ","\"Age\""}],"]"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"sibsp"," ","="," ",RowBox[{"titanicDataCleaned","[",RowBox[{"[",RowBox[
+{"All",","," ","\"SibSp\""}],"]"}],"]"}]}],";"}],"\n",RowBox[{RowBox[{"parch"," ","="," ",RowBox[
+{"titanicDataCleaned","[",RowBox[{"[",RowBox[{"All",","," ","\"Parch\""}],"]"}],"]"}]}],";"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","4"}],":"," ",RowBox[
+{RowBox[{"Feature"," ","Engineering"}]," ","-"," ",RowBox[{"Create"," ","FamilySize"," ","feature"}]}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"familySize"," ","="," ",RowBox[{"sibsp"," ","+"," ","parch"," ","+"," ","1"}]}],";"}]}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","5"}],":"," ",RowBox[
+{"Remove"," ","rows"," ","with"," ","missing"," ","Age"," ","values"}]}]," ","*)"}],"\n",RowBox[
+{RowBox[{"validIndices"," ","="," ",RowBox[{"Position","[",RowBox[{"age",","," ",RowBox[
+{"_","?",RowBox[{"(","NumberQ",")"}]}]}],"]"}]}],";"}]}],"\n",RowBox[{RowBox[{"cleanPassengerClass"," ","="," ",RowBox[
+{"Extract","[",RowBox[{"passengerClass",","," ","validIndices"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"cleanGender"," ","="," ",RowBox[{"Extract","[",RowBox[{"gender",","," ","validIndices"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"cleanSurvived"," ","="," ",RowBox[{"Extract","[",RowBox[{"survived",","," ","validIndices"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"cleanAges"," ","="," ",RowBox[{"Extract","[",RowBox[{"age",","," ","validIndices"}],"]"}]}],";"}],"\n",RowBox[
+{RowBox[{"cleanFamilySize"," ","="," ",RowBox[{"Extract","[",RowBox[{"familySize",","," ","validIndices"}],"]"}]}],";"}],RowBox[
+{"\n","\n"}],RowBox[{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","6"}],":"," ",RowBox[
+{"Combine"," ","features"}]}]," ","*)"}],"\n",RowBox[{RowBox[{"features"," ","="," ",RowBox[
+{"Transpose","[",RowBox[{"{",RowBox[{"cleanAges",","," ","cleanPassengerClass",","," ","cleanGender",","," ","cleanFamilySize"}],"}"}],"]"}]}],";"}]}],"\n",RowBox[
+{RowBox[{"labels"," ","="," ","cleanSurvived"}],";"}],RowBox[{"\n","\n"}],RowBox[
+{RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","7"}],":"," ",RowBox[{"Ensure"," ","features"," ","and"," ","labels"," ","have"," ","the"," ","same"," ","length"}]}]," ","*)"}],"\n",RowBox[
+{"If","[",RowBox[{RowBox[{RowBox[{"Length","[","features","]"}]," ","==="," ",RowBox[
+{"Length","[","labels","]"}]}],",","\n","    ",RowBox[{"(*"," ",RowBox[{RowBox[{"Step"," ","8"}],":"," ",RowBox[
+{"Prepare"," ","training"," ","data"}]}]," ","*)"}],"\n","    ",RowBox[{RowBox[{"trainingData"," ","="," ",RowBox[
+{"MapThread","[",RowBox[{"Rule",","," ",RowBox[{"{",RowBox[{"features",","," ","labels"}],"}"}]}],"]"}]}],";","\n","    ","\n","    ",RowBox[
+{"(*"," ",RowBox[{RowBox[{"Step"," ","9"}],":"," ",RowBox[{"Train"," ","the"," ","model"," ","using"," ","Logistic"," ","Regression"}]}]," ","*)"}],"\n","    ",RowBox[
+{"model"," ","="," ",RowBox[{"Classify","[",RowBox[{"trainingData",","," ",RowBox[
+{"Method"," ","\[Rule]"," ","\"LogisticRegression\""}]}],"]"}]}],";","\n","    ","\n","    ",RowBox[
+{"(*"," ",RowBox[{RowBox[{"Step"," ","10"}],":"," ",RowBox[{"Evaluate"," ","model"," ","on"," ","a"," ","new"," ","data"," ","point"," ",RowBox[
+{"{",RowBox[{"age",","," ","class",","," ","gender",","," ","familySize"}],"}"}]}]}]," ","*)"}],"\n","    ",RowBox[
+{"Classify","[",RowBox[{"model",","," ",RowBox[{"{",RowBox[{"22",","," ","3",","," ","1",","," ","1"}],"}"}]}],"]"}]}],",","\n","    ",RowBox[
+{"Print","[","\"Features and labels are not of the same length.\"","]"}]}],"\n","]"}]}]}],
+"Input",ExpressionUUID -> "70e8661a-c98d-4ef7-b571-0bf5a6425ddf"],Cell[
+BoxData[RowBox[
+{"Classify","[",RowBox[{RowBox[{"Classify","[",RowBox[{RowBox[{"{","}"}],",",RowBox[
+{"Method","\[Rule]","\"LogisticRegression\""}]}],"]"}],",",RowBox[{"{",RowBox[{"22",",","3",",","1",",","1"}],"}"}]}],"]"}],
+StandardForm],"Output",CellLabel -> "Out[18]= ",ExpressionUUID -> "60fceb54-0fd5-49b7-a18d-22785e496eda"]},
+StyleDefinitions -> "Default.nb",FrontEndVersion -> "14.1 for Wolfram Cloud 1.69.0.1 (September 4, 2024)"]
